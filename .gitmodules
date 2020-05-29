@@ -1,0 +1,3 @@
+[submodule "qslim"]
+	path = qslim
+	url = https://github.com/alecjacobson/qslim.git
