@@ -1,0 +1,46 @@
+#
+# MAKEFILE for vpreduce
+#
+WXDIR = "C:/wxWidgets-3.0.5"
+
+CFLAGS = /D_WIN64 /DWIN64 /D_WIN32 /DWIN32 /D_WINDOWS /DWINDOWS /DNDEBUG \
+ /DwxUSE_GUI=1 /D__WXMSW__ /D_UNICODE /DUNICODE /W3 /GR \
+ /O1 /FD /EHsc /Gd /Zc:wchar_t /Zc:forScope /WX- /MD \
+ /I../include /I$(WXDIR)/include /I$(WXDIR)/lib/vc_x64_lib/mswu
+
+LDLIBS = /libpath:$(WXDIR)/lib/vc_x64_lib \
+ "wxmsw30u_gl.lib" "opengl32.lib" "glu32.lib" "wxmsw30u_core.lib" "wxbase30u.lib" \
+ "wxtiff.lib" "wxjpeg.lib" "wxpng.lib" "wxzlib.lib" "wxregexu.lib" "wxexpat.lib" \
+ "kernel32.lib" "user32.lib" "gdi32.lib" "comdlg32.lib" "winspool.lib" "winmm.lib" \
+ "shell32.lib" "comctl32.lib" "ole32.lib" "oleaut32.lib" "uuid.lib" "rpcrt4.lib" \
+ "advapi32.lib" "wsock32.lib" "wininet.lib" "odbc32.lib" "odbccp32.lib"
+
+LDFLAGS = /MANIFEST /ManifestFile:"vpreduce.manifest" /ALLOWISOLATION \
+ /MANIFESTUAC:"level='asInvoker' uiAccess='false'" \
+ /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF \
+ /MACHINE:X64 \
+
+OBJS =	vprReductionApp.obj \
+	vprReductionView.obj \
+	trackball.obj 
+
+TARGET = vpreduce.exe
+
+CXX = cl -nologo -c
+AR = lib /NOLOGO
+LINK = link
+
+.SUFFIXES: .cpp .obj
+
+.cpp.obj:
+	$(CXX) $(CFLAGS) $<
+
+
+vpreduce.exe : $(OBJS)
+	$(LINK) $(LDFLAGS) -out:$@ $(OBJS) $(LDLIBS)
+
+clean : 
+	-@erase *.obj
+
+distclean : clean
+	-@erase $(TARGET) vc*.*

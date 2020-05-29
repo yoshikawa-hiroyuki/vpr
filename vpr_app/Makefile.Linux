@@ -1,0 +1,48 @@
+# makefile for vpr
+
+G = -g
+WXDIR=/usr
+
+INC = -I. -I../include
+CFLAGS = $(INC) -DLinux -DLINUX $(G)
+CXXFLAGS = $(CFLAGS) `$(WXDIR)/bin/wx-config --cxxflags` \
+	-DGL_GLEXT_PROTOTYPES \
+
+LDLIBS = `$(WXDIR)/bin/wx-config --libs core,base,net,gl,adv` \
+	-lGL -lGLU -ldl
+
+LDFLAGS = $(G)
+
+DEPEND = makedepend -Y
+STRIP = strip
+ifeq ($(G), -g)
+  STRIP=@echo
+endif
+
+
+PROGRAM = vpreduce
+
+OBJS =	vprReductionApp.o \
+	vprReductionView.o \
+	trackball.o \
+
+
+all : $(PROGRAM)
+
+$(PROGRAM) : $(OBJS)
+	$(CXX) $(G) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
+	$(STRIP) $(PROGRAM)
+
+clean :
+	$(RM) $(OBJS)
+
+distclean : clean
+	$(RM) $(PROGRAM)
+
+
+depend :
+	$(DEPEND) $(INC) *.cpp
+
+
+
+# DO NOT DELETE

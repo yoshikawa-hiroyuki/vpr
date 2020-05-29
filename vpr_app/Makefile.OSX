@@ -1,0 +1,92 @@
+# makefile for vpr
+
+G = -g -O2
+WXDIR=/usr/local
+
+INC = -I. -I../include
+CFLAGS = $(INC) -DDARWIN -D__DARWIN__ $(G)
+CXXFLAGS = $(CFLAGS) `$(WXDIR)/bin/wx-config --cxxflags` \
+	-DGL_GLEXT_PROTOTYPES \
+
+LDLIBS = `$(WXDIR)/bin/wx-config --libs core,base,net,gl,adv` \
+	-ldl
+
+LDFLAGS = $(G)
+
+INSTALL = /usr/bin/install -c
+DEPEND = makedepend -Y
+STRIP = strip
+ifeq ($(G), -g)
+     STRIP=@echo
+endif
+
+
+PROGRAM = vpreduce
+MODULE = vpr_qslim.dylib
+
+OBJS =	vprReductionApp.o \
+	vprReductionView.o \
+	trackball.o \
+
+
+all : bundle
+
+$(PROGRAM) : $(OBJS)
+	$(CXX) $(G) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
+	$(STRIP) $(PROGRAM)
+
+clean :
+	$(RM) $(OBJS)
+
+distclean : clean
+	$(RM) -r $(PROGRAM).app
+	$(RM) $(PROGRAM)
+
+
+depend :
+	$(DEPEND) $(INC) *.cpp
+
+BUNDLE = $(PROGRAM).app/Contents
+COPYRIGHT = 2020 YoH
+VERSION = 1.0
+
+# Targets to build a Mac OS X application bundle
+bundle: $(BUNDLE)/MacOS/$(PROGRAM) \
+	$(BUNDLE)/MacOS/$(MODULE) \
+	$(BUNDLE)/Info.plist \
+	$(BUNDLE)/PkgInfo \
+	$(BUNDLE)/Resources/$(PROGRAM).rsrc \
+	$(BUNDLE)/Resources/$(PROGRAM).icns
+
+$(BUNDLE)/Info.plist: Info.plist.in
+	@$(INSTALL) -d `dirname $@`
+	sed -e "s/IDENTIFIER/`echo $(program_dir) | sed 's,/,.,g'`/" \
+	    -e "s/EXECUTABLE/$(PROGRAM)/" \
+	    -e "s/ICONFILE/$(PROGRAM)\.icns/" \
+	    -e "s/COPYRIGHT/$(COPYRIGHT)/" \
+	    -e "s/????/vpra/" \
+	    -e "s/VERSION/$(VERSION)/" $< > $@
+
+$(BUNDLE)/PkgInfo:
+	@$(INSTALL) -d `dirname $@`
+	echo -n "APPLvpra" > $@
+
+$(BUNDLE)/MacOS/$(PROGRAM): $(PROGRAM)
+	@$(INSTALL) -d `dirname $@`
+	cp $< $@
+	./inst_local_dylib.sh $@
+
+$(BUNDLE)/MacOS/$(MODULE): $(MODULE)
+	@$(INSTALL) -d `dirname $@`
+	cp $< $@
+	./inst_local_dylib.sh $@
+
+$(BUNDLE)/Resources/$(PROGRAM).rsrc: tmpl.rsrc
+	@$(INSTALL) -d `dirname $@`
+	cp $< $@
+
+$(BUNDLE)/Resources/$(PROGRAM).icns: tmpl.icns
+	@$(INSTALL) -d `dirname $@`
+	cp $< $@
+	
+# DO NOT DELETE

@@ -1,0 +1,33 @@
+#
+include ../qslim/mixkit/mix-config
+
+INC = -I../include
+
+LD = ${CXX} -shared
+INSTALL = install
+RM = rm -f
+
+CXXFLAGS += -fPIC ${INC} -fpermissive
+LDLIBS += ${LDFLAGS} ${LIBMIX} ${GUI_LIBS}
+
+.SUFFIXES: .cpp .o
+.cpp.o:
+	$(CXX) -c $(CXXFLAGS) $<
+
+TARGET = vpr_qslim.so
+OBJS = vpr_qslim.o
+
+all : ${TARGET}
+
+${TARGET} : ${OBJS}
+	${LD} -o $@ ${OBJS} ${LDLIBS}
+
+install : ${TARGET}
+	sh Install.sh
+
+clean: 
+	${RM} ${OBJS}
+
+distclean : clean
+	${RM} ${TARGET}
+

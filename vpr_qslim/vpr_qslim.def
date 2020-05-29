@@ -1,0 +1,12 @@
+LIBRARY	vpr_qslim
+
+EXPORTS
+	VPR_getVersion
+	VPR_open
+	VPR_save
+	VPR_getNumVertex
+	VPR_getNumFaces
+	VPR_getBBox
+	VPR_decimate
+	VPR_drawGL
+	VPR_getLastError
