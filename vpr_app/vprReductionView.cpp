@@ -47,7 +47,7 @@ BEGIN_EVENT_TABLE(vprReductionView, wxFrame)
   EVT_MENU(ReductView_Menu_FileOpen, vprReductionView::OnMenuFileOpen)
   EVT_MENU(ReductView_Menu_FileSave, vprReductionView::OnMenuFileSave)
   EVT_MENU(ReductView_Menu_FileExit, vprReductionView::OnMenuFileExit)
-  EVT_MENU(ReductView_Menu_ViewFit, vprReductionView::OnMenuViewFit)
+  EVT_MENU(ReductView_Menu_ViewReset, vprReductionView::OnMenuViewReset)
 END_EVENT_TABLE()
 
 
@@ -139,7 +139,7 @@ vprReductionView::vprReductionView(wxWindow *parent,
   setupMenuBar();
   
   /* Fitting */
-  m_canvas->FitView();
+  m_canvas->ResetView();
 
   /* Initial Status */
   UpdateStatusText();
@@ -170,8 +170,8 @@ void vprReductionView::setupMenuBar() {
   // View menu
   wxMenu* viewMenu = new wxMenu;
   if ( ! viewMenu ) return;
-  viewMenu->Append(ReductView_Menu_ViewFit, wxT("Fit view\tSPACE"),
-                   wxT("Fit view frustum to the object"));
+  viewMenu->Append(ReductView_Menu_ViewReset, wxT("Reset view\tSPACE"),
+                   wxT("Reset view frustum to the object"));
   pmb->Append(viewMenu, wxT("View"));
 
   SetMenuBar(pmb);
@@ -240,8 +240,8 @@ void vprReductionView::OnMenuFileOpen(wxCommandEvent& event) {
   m_targTxt->SetValue(ts);
   UpdateStatusText();
 
-  // fit
-  m_canvas->FitView();
+  // view reset
+  m_canvas->ResetView();
   Refresh(FALSE);
 }
 
@@ -285,8 +285,8 @@ void vprReductionView::OnMenuFileExit(wxCommandEvent& event) {
   exit(0);
 }
 
-void vprReductionView::OnMenuViewFit(wxCommandEvent& event) {
-  m_canvas->FitView();
+void vprReductionView::OnMenuViewReset(wxCommandEvent& event) {
+  m_canvas->ResetView();
 }
 
 void vprReductionView::OnPercentSpn(wxSpinDoubleEvent& event) {
@@ -549,7 +549,7 @@ void vprRV_GLCanvas::OnKeyin(wxKeyEvent& event) {
   int kc = event.GetKeyCode();
   if ( kc == WXK_SPACE ) {
     info.reset();
-    FitView();
+    ResetView();
     Refresh(FALSE);
   }
   else if ( kc == WXK_ESCAPE ) {
@@ -600,7 +600,7 @@ void vprRV_GLCanvas::InitGL(void) {
   glEnable(GL_LINE_SMOOTH);
 }
 
-void vprRV_GLCanvas::FitView() {
+void vprRV_GLCanvas::ResetView() {
   if ( ! p_reducer ) return;
 
   float bbox[2][3];

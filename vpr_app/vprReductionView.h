@@ -22,7 +22,7 @@ namespace VPR {
 	ReductView_Menu_FileOpen,
 	ReductView_Menu_FileSave,
 	ReductView_Menu_FileExit,
-	ReductView_Menu_ViewFit,
+	ReductView_Menu_ViewReset,
   };
 };
 
@@ -72,7 +72,7 @@ public:
   void OnMenuFileOpen(wxCommandEvent& event);
   void OnMenuFileSave(wxCommandEvent& event);
   void OnMenuFileExit(wxCommandEvent& event);
-  void OnMenuViewFit(wxCommandEvent& event);
+  void OnMenuViewReset(wxCommandEvent& event);
   void OnClose(wxCloseEvent& event);
     
   void SetCanvas(vprRV_GLCanvas *canvas ) {m_canvas = canvas;}
@@ -117,7 +117,7 @@ public:
   void OnKeyin(wxKeyEvent& event);
   
   void InitGL(void);
-  void FitView();
+  void ResetView();
 
   view_info   info;
   model_xform xform;
