@@ -1,6 +1,6 @@
 # vpreduce (<small>V-PolygonReducer app</small>)
 
-### Overview
+## Overview
 vpreduceは、Wavefront OBJ形式のポリゴンデータを読み込み、ポリゴンリダクションを行うプログラムです。
 
 vpreduceはC++で記述され、[wxWidgets](https://www.wxwidgets.org)と[OpenGL](https://www.opengl.org)を使用しています。
@@ -10,15 +10,17 @@ vpreduceはC++で記述され、[wxWidgets](https://www.wxwidgets.org)と[OpenGL
 
 ---
 
-### Pre-Compiled binary
+## Pre-Compiled binary
 bin/ 配下に、コンパイル済みの実行ファイルが含まれます。
 - bin/Windows/vpreduce.exe  (Windows10 64bit)
 - bin/macOS/vpreduce.app  (macOS 10.15)
 - bin/Ubuntu18/vpreduce  (Ubuntu18.04 64bit)
 
+これらの実行ファイルは、任意のディレクトリにコピーして使用できますが、その際には実行ファイルと同じディレクトリにあるvpr_qslimモジュールも一緒にコピーしてください。
+
 ---
 
-### Operation
+## Operation
 <dl>
 <dt>Open OBJ file</dt>
 <dd>FileメニューからOpenを選択すると表示されるファイル選択ダイアログでOBJファイルを選択します。</dd>
@@ -37,15 +39,16 @@ bin/ 配下に、コンパイル済みの実行ファイルが含まれます。
 
 ---
 
-### Build from source
-#### Qslim
+## Build from source
+### Qslim
 事前にQSlimのビルドが必要です。
 
 本リポジトリでは、Michael Garland氏が公開している[オリジナルのQSlim](https://mgarland.org/software/qslim.html)を、[Alec Jacobsob氏がMacOS X用にポーティングしたもの](https://github.com/alecjacobson/qslim)をサブモジュールとして参照しています。以下のように行うことで、こちらも含めてリポジトリのクローンを行うことができます。
-
- `git clone --recursive https://github.com/yoshikawa-hiroyuki/vpr.git`
-
-この場合は、vpr/qslim/ 配下にQSlimのソースが展開され、README.mdの記述を参考にビルドを行います。
+```
+ $ git clone --recursive https://github.com/yoshikawa-hiroyuki/vpr.git
+```
+この場合は、vpr/qslim/ 配下にQSlimのソースが展開されるので
+、README.mdの記述を参考にビルドを行います。
 ```bash
 $ cd libgfx
 $ env CPPFLAGS="-I/usr/local/include -fpermissive -fPIC" LDFLAGS="-L/usr/local/lib" ./configure
@@ -56,9 +59,45 @@ $ make -C src
 ```
 
 
-#### vpr_qslim
+### vpr_qslim
+#### Linux
+```
+$ cd vpr_qslim
+$ make -f Makefile.Linux
+$ cp vpr_qslim.so ../vpr_app/
+```
 
-#### vpr_app
+#### macOS
+```
+$ cd vpr_qslim
+$ make -f Makefile.OSX
+$ cp vpr_qslim.dylib ../vpr_app/
+```
+
+#### Windows
+vpr_qslimに移動し、`vpr_qslim.sln`をVisual Studio 2019 C++で開き、x64|Releaseのビルドを行います。その後、以下のコマンドを実行します。
+```
+> copy x64\Release\vpr_qslim.dll ..\vpr_app
+```
+
+### vpr_app
+#### Linux
+```
+$ cd vpr_app
+$ make -f Makefile.Linux
+```
+
+#### macOS
+```
+$ cd vpr_app
+$ make -f Makefile.OSX
+```
+
+#### Windows
+```
+> cd vpr_app
+> nmake /f MAKEFILE.WIN64
+```
 
 ---
 
