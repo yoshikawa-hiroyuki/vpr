@@ -49,6 +49,9 @@ bin/ 配下に、コンパイル済みの実行ファイルが含まれます。
 ```
 この場合は、vpr/qslim/ 配下にQSlimのソースが展開されるので
 、README.mdの記述を参考にビルドを行います。
+
+QSlimのビルドには、[FLTK](https://www.fltk.org/)がインストールされている必要があります。
+以下では、FLTKが`/usr/local`配下にインストールされているものとします。
 ```bash
 $ cd libgfx
 $ env CPPFLAGS="-I/usr/local/include -fpermissive -fPIC" LDFLAGS="-L/usr/local/lib" ./configure
