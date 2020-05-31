@@ -14,6 +14,7 @@ vpreduceはC++で記述され、[wxWidgets](https://www.wxwidgets.org)と[OpenGL
 bin/ 配下に、コンパイル済みの実行ファイルが含まれます。
 - bin/Windows/vpreduce.exe  (Windows10 64bit)
 - bin/macOS/vpreduce.app  (macOS 10.15)
+- bin/Ubuntu18/vpreduce  (Ubuntu18.04 64bit)
 
 ---
 
@@ -29,7 +30,7 @@ bin/ 配下に、コンパイル済みの実行ファイルが含まれます。
 いずれの場合も、指定した規模までポリゴンリダクションが行われた状態のモデルがウインドウに3D表示されます。
 </dd>
 <dt>Save OBJ file</dt>
-<dd>FileメニューからSaveを選択すると表示されるファイル選択ダイアログでOBJファイルを指定すると、現在のポリゴン数の状態でOBJファイルを保存します。</dd>
+<dd>FileメニューからSaveを選択すると表示されるファイル選択ダイアログで指定したOBJファイルに、現在のポリゴン数の状態のモデルを保存します。</dd>
 <dt>Quit</dt>
 <dd>FileメニューからQuitを選択するか、Escキーを押すとプログラムを終了します。</dd>
 </dl>
@@ -38,6 +39,22 @@ bin/ 配下に、コンパイル済みの実行ファイルが含まれます。
 
 ### Build from source
 #### Qslim
+事前にQSlimのビルドが必要です。
+
+本リポジトリでは、Michael Garland氏が公開している[オリジナルのQSlim](https://mgarland.org/software/qslim.html)を、[Alec Jacobsob氏がMacOS X用にポーティングしたもの](https://github.com/alecjacobson/qslim)をサブモジュールとして参照しています。以下のように行うことで、こちらも含めてリポジトリのクローンを行うことができます。
+
+ `git clone --recursive https://github.com/yoshikawa-hiroyuki/vpr.git`
+
+この場合は、vpr/qslim/ 配下にQSlimのソースが展開され、README.mdの記述を参考にビルドを行います。
+```bash
+$ cd libgfx
+$ env CPPFLAGS="-I/usr/local/include -fpermissive -fPIC" LDFLAGS="-L/usr/local/lib" ./configure
+$ make -C src
+$ cd ../mixkit
+$ ./configure
+$ make -C src
+```
+
 
 #### vpr_qslim
 
@@ -46,4 +63,4 @@ bin/ 配下に、コンパイル済みの実行ファイルが含まれます。
 ---
 
 ### Author
-_Yoshikawa, Hiroyuki_
+_YOSHIKAWA Hiroyuki, FUJITSU LTD._
