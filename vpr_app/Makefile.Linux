@@ -2,13 +2,14 @@
 
 G = -g
 WXDIR=/usr
+WXCONFIG=$(WXDIR)/bin/wx-config
 
 INC = -I. -I../include
 CFLAGS = $(INC) -DLinux -DLINUX $(G)
-CXXFLAGS = $(CFLAGS) `$(WXDIR)/bin/wx-config --cxxflags` \
+CXXFLAGS = $(CFLAGS) `$(WXCONFIG) --cxxflags` \
 	-DGL_GLEXT_PROTOTYPES \
 
-LDLIBS = `$(WXDIR)/bin/wx-config --libs core,base,net,gl,adv` \
+LDLIBS = `$(WXCONFIG) --libs core,base,net,gl,adv` \
 	-lGL -lGLU -ldl
 
 LDFLAGS = $(G)
