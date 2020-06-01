@@ -14,7 +14,8 @@ vpreduceはC++で記述され、[wxWidgets](https://www.wxwidgets.org)と[OpenGL
 bin/ 配下に、コンパイル済みの実行ファイルが含まれます。
 - bin/Windows/vpreduce.exe  (Windows10 64bit)
 - bin/macOS/vpreduce.app  (macOS 10.15)
-- bin/Ubuntu18/vpreduce  (Ubuntu18.04 64bit)
+- bin/Ubuntu18/vpreduce  (Ubuntu 18.04 64bit)
+- bin/CentOS7/vpreduce  (CentOS 7.6 64bit)
 
 これらの実行ファイルは、任意のディレクトリにコピーして使用できますが、その際には実行ファイルと同じディレクトリにあるvpr_qslimモジュールも一緒にコピーしてください。
 
