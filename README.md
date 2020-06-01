@@ -40,6 +40,15 @@ bin/ 配下に、コンパイル済みの実行ファイルが含まれます。
 
 ---
 
+## Sample
+HappyBuddha(Stanford) original model (600,000 faces)
+![orig model](imgs/s_happy-buddha-org.png)
+
+95% reduced model (30,000 faces)
+![95% reduced model](imgs/s_happy-buddha-5%.png)
+
+---
+
 ## Build from source
 ### Qslim
 事前にQSlimのビルドが必要です。
