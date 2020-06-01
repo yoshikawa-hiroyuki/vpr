@@ -45,7 +45,7 @@ HappyBuddha(Stanford) original model (600,000 faces)
 ![orig model](imgs/s_happy-buddha-org.png)
 
 95% reduced model (30,000 faces)
-![95% reduced model](imgs/s_happy-buddha-5%.png)
+![95% reduced model](imgs/s_happy-buddha-5parpng)
 
 ---
 
