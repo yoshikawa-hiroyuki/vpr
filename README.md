@@ -50,7 +50,7 @@ bin/ 配下に、コンパイル済みの実行ファイルが含まれます。
 この場合は、vpr/qslim/ 配下にQSlimのソースが展開されるので
 、README.mdの記述を参考にビルドを行います。
 
-QSlimのビルドには、[FLTK](https://www.fltk.org/)がインストールされている必要があります。
+QSlimのビルドには、[FLTK](https://www.fltk.org/)がインストールされている必要があります。事前にインストールを行ってください。
 以下では、FLTKが`/usr/local`配下にインストールされているものとします。
 ```bash
 $ cd libgfx
@@ -84,6 +84,11 @@ vpr_qslimに移動し、`vpr_qslim.sln`をVisual Studio 2019 C++で開き、x64|
 ```
 
 ### vpr_app
+
+vpreduceのビルドはvpr_appディレクトリで行います。
+
+vpreduceのビルドには、wxWidgets-3.xが必要です。事前にインストールを行ってください。
+
 #### Linux
 ```
 $ cd vpr_app
