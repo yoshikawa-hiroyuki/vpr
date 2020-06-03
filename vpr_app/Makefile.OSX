@@ -1,7 +1,7 @@
 # makefile for vpr
 
 G = -g -O2
-WXDIR=/usr/local
+WXDIR=/opt/WX
 WXCONFIG=$(WXDIR)/bin/wx-config
 
 INC = -I. -I../include
