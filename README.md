@@ -20,6 +20,10 @@ bin/ 配下に、コンパイル済みの実行ファイルが含まれます。
 これらの実行ファイルは、任意のディレクトリにコピーして使用できますが、その際には実行ファイルと同じディレクトリにあるvpr_qslimモジュールも一緒にコピーしてください。
 
 また、Linux環境での実行にはwxWidgets(wxGTK3)が必要です。事前にapt, yum等でインストールを行ってください。
+- CentOS<br>
+`sudo yum install wxGTK3 wxGTK3-gl`
+- Ubuntu<br>
+`sudo apt install libwxgtk3.0 libwxgtk3.0-gtk3`
 
 ---
 
