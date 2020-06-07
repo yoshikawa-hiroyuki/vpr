@@ -21,6 +21,12 @@ bin/ 配下に、コンパイル済みの実行ファイルが含まれます。
 
 また、Linux環境での実行にはwxWidgets(wxGTK3)が必要です。事前にapt, yum等でインストールを行ってください。
 
+起動すると、以下のようなウインドウが表示されます(イメージはOBJファイルを読み込んだところ)。
+
+  ![vpreduce view](imgs/view.png)
+  
+  data from [縄文オープンソースプロジェクト](https://jomon-supporters.jp/open-source/), STLを[MeshLab](https://www.meshlab.net)でOBJに変換。
+
 ---
 
 ## Operation
